@@ -1,5 +1,6 @@
 package com.digitalreasoning.serializer;
 
+import com.digitalreasoning.entities.File;
 import com.digitalreasoning.entities.Sentence;
 import com.digitalreasoning.entities.Token;
 
@@ -11,18 +12,41 @@ import java.util.List;
 public class PrettyPrintXMLSerializer implements XmlSerializer {
 
     public String serializeSentences(List<Sentence > sentences){
-        int currentIndent = 0;
+
         StringBuilder sb = new StringBuilder();
+        return serializeSentences(sb,sentences,0);
+    }
+    public String serializeSentences(  StringBuilder sb ,List<Sentence > sentences,   int currentIndent){
         if (sentences != null){
+            addIndent(sb,currentIndent);
             sb.append("<sentences>\n");
             for (Sentence s : sentences){
                 serializeSentence(sb,s,currentIndent+1);
             }
+            addIndent(sb,currentIndent);
             sb.append("</sentences>\n");
         }
 
         return  sb.toString();
     }
+
+    public String serializeFiles(List<File> files){
+        StringBuilder sb = new StringBuilder();
+        if (files != null){
+            for (File f : files){
+                if (f.getFileName() != null && f.getFileName() != "" ){
+                    sb.append(String.format("<file filename=\"%s\">\n",f.getFileName()));
+                }else {
+                    sb.append("<file>\n");
+                }
+                serializeSentences(sb,f.getSentences() , 1);
+                sb.append("</file>\n");
+            }
+        }
+
+        return  sb.toString();
+    }
+
     private void addIndent(StringBuilder sb,int indent){
         for (int i = 0 ; i < indent; i++){
             sb.append("  ");

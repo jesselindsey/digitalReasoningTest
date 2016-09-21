@@ -1,5 +1,6 @@
 package com.digitalreasoning.serializer;
 
+import com.digitalreasoning.entities.File;
 import com.digitalreasoning.entities.Sentence;
 
 import java.util.List;
@@ -9,4 +10,5 @@ import java.util.List;
  */
 public interface XmlSerializer {
     String serializeSentences(List<Sentence > sentences);
+    String serializeFiles(List<File> files);
 }
