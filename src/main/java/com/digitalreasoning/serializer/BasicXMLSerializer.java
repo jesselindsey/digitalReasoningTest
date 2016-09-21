@@ -8,20 +8,20 @@ import java.util.List;
 /**
  * Created by lindsey on 9/20/16.
  */
-public class BasicXMLSerializer {
+public class BasicXMLSerializer implements XmlSerializer {
 
-    public String serializeSentence(List<Sentence > sentences){
+    public String serializeSentences(List<Sentence > sentences){
         StringBuilder sb = new StringBuilder();
         if (sentences != null){
             for (Sentence s : sentences){
-                serializeSentence(sb,s);
+                serializeSentences(sb,s);
             }
         }
 
         return  sb.toString();
     }
 
-    private void serializeSentence(StringBuilder sb, Sentence s) {
+    private void serializeSentences(StringBuilder sb, Sentence s) {
         if (s != null && s.getTokens() != null){
             sb.append("<sentence>");
 
@@ -37,7 +37,7 @@ public class BasicXMLSerializer {
         if (t != null && t.getValue() != null){
             sb.append("<token>");
             sb.append(t.getValue());
-            sb.append("</sentence>");
+            sb.append("</token>");
         }
     }
 }

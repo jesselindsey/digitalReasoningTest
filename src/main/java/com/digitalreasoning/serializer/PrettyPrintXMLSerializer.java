@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class PrettyPrintXMLSerializer implements XmlSerializer {
 
-    public String serializeSentence(List<Sentence > sentences){
+    public String serializeSentences(List<Sentence > sentences){
         int currentIndent = 0;
         StringBuilder sb = new StringBuilder();
         if (sentences != null){

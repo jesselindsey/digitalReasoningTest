@@ -2,6 +2,7 @@ package com.digitalreasoning.parser;
 
 import com.digitalreasoning.entities.Sentence;
 import com.digitalreasoning.entities.Token;
+import sun.invoke.empty.Empty;
 
 import java.io.*;
 import java.nio.MappedByteBuffer;
@@ -13,7 +14,15 @@ import java.util.List;
  * Created by lindsey on 9/20/16.
  */
 public class BasicParser {
+    String punctuation = "()\"?,'";
 
+    enum TokenType{
+        EMPTY,WHITESPACE,DOT,PUNCTUATION,CHARACTER, IGNORE;
+
+        public boolean isTokenizeAble() {
+            return this==DOT || this==PUNCTUATION || this==CHARACTER;
+        }
+    }
     public List<Sentence> parseFile( InputStream inputstream) throws IOException {
         List<Sentence> sentences = new ArrayList<Sentence>();
 
@@ -21,56 +30,70 @@ public class BasicParser {
         StringBuilder currentToken = new StringBuilder();
 
 
-        String punctuation = "()\"?,'";
 
 
+
+        TokenType lastTokenType = TokenType.EMPTY;
+        TokenType currentTokenType = TokenType.EMPTY;
         int data = inputstream.read();
         while(data != -1) {
             char c = (char) data;
+
+            // determine the token type
             if (c == '\n'){
-                // ignore line break
-
+                currentTokenType = TokenType.IGNORE;
             } else if (c == '.'){
-                if (currentToken.length() > 0 &&  currentToken.charAt( currentToken.length() - 1) == '.'){
-
-                } else {
-                    saveNonZeroLengthTokens(currentSentence, currentToken);
-                }
-
-                if (currentSentence.getTokens().size() > 0) {
-                    sentences.add(currentSentence);
-                    currentSentence = new Sentence();
-                }
-
-                currentToken.append(c);
+                currentTokenType = TokenType.DOT;
             } else if (c == ' '){
-
-                saveNonZeroLengthTokens(currentSentence, currentToken);
-
+                currentTokenType = TokenType.WHITESPACE;
             } else if (punctuation.indexOf(c) >= 0){
-                // this is punctuation
-                saveNonZeroLengthTokens(currentSentence, currentToken);
-                Token t = new Token( String.valueOf(c));
-                currentSentence.getTokens().add(t);
-
+                currentTokenType = TokenType.PUNCTUATION;
             } else {
-                // not punctionation, whitespace or period
-                currentToken.append(c);
+                currentTokenType = TokenType.CHARACTER;
             }
 
+            if (lastTokenType == currentTokenType   ){
+                // Case the the token type is the same
+                if (currentTokenType.isTokenizeAble()) {
+                    if (currentTokenType == TokenType.PUNCTUATION) {
+                        // each punctuation is duplicated
+                        saveNonZeroLengthTokens(currentSentence, currentToken);
+                    }
+                    currentToken.append(c);
+                }
+            } else {
+                // Case the the token type changes
+                if  (lastTokenType.isTokenizeAble() ) {
+                    if (lastTokenType != TokenType.DOT  ||
+                        lastTokenType == TokenType.DOT && currentToken.length() > 1){
+                        saveNonZeroLengthTokens(currentSentence, currentToken);
+                    }else {
+                        // start a new sentence
+                        if (currentSentence.getTokens().size() > 0){
+                            sentences.add(currentSentence);
+                            currentSentence = new Sentence();
+                        }
+                    }
+
+                }
+                currentToken.setLength(0);
+                currentToken.append(c);
+                lastTokenType = currentTokenType;
+            }
 
 
             data = inputstream.read();
         }
 
-        if (currentToken.length() > 0){
-            Token t = new Token(currentToken.toString());
-            currentSentence.getTokens().add(t);
+        if  (lastTokenType.isTokenizeAble() ) {
+            if (lastTokenType != TokenType.DOT  ||
+                    lastTokenType == TokenType.DOT && currentToken.length() > 1){
+                saveNonZeroLengthTokens(currentSentence, currentToken);
+            }
         }
         if (currentSentence.getTokens().size() > 0){
             sentences.add(currentSentence);
         }
-
 
 
         inputstream.close();
@@ -83,11 +106,10 @@ public class BasicParser {
     }
     private void saveNonZeroLengthTokens(Sentence currentSentence, StringBuilder currentToken) {
         if (currentToken.length() > 0) {
-            if (currentToken.charAt(currentToken.length() - 1) != '.') {
-                Token t = new Token(currentToken.toString());
-                currentSentence.getTokens().add(t);
-            }
-            currentToken.setLength(0);
+
+            Token t = new Token(currentToken.toString());
+            currentSentence.getTokens().add(t);
+
         }
     }
 
