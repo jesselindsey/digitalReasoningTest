@@ -33,10 +33,21 @@ public class BasicXMLSerializer implements XmlSerializer {
         }
     }
 
+
     private void serializeToken(StringBuilder sb, Token t) {
         if (t != null && t.getValue() != null){
-            sb.append("<token>");
+
+
+            if ( t.isNamedEntity){
+                sb.append("<token namedEntity=\"true\">");
+            } else {
+                sb.append("<token>");
+            }
+
+
             sb.append(t.getValue());
+
+
             sb.append("</token>");
         }
     }

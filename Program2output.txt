@@ -1,0 +1,125 @@
+<sentences>
+  <sentence>
+    <token>The</token>
+    <token namedEntity="true">Broyden–Fletcher–Goldfarb–Shanno</token>
+    <token>(</token>
+    <token namedEntity="true">BFGS</token>
+    <token>)</token>
+    <token>algorithm</token>
+    <token>is</token>
+    <token>an</token>
+    <token>iterative</token>
+    <token>method</token>
+    <token>for</token>
+    <token>solving</token>
+    <token>unconstrained</token>
+    <token>nonlinear</token>
+    <token>optimization</token>
+    <token>problems</token>
+  </sentence>
+  <sentence>
+    <token>The</token>
+    <token namedEntity="true">BFGS</token>
+    <token>method</token>
+    <token>approximates</token>
+    <token namedEntity="true">Newton</token>
+    <token>'</token>
+    <token>s</token>
+    <token>method</token>
+    <token>,</token>
+    <token>a</token>
+    <token>class</token>
+    <token>of</token>
+    <token>hill-climbing</token>
+    <token>optimization</token>
+    <token>techniques</token>
+    <token>that</token>
+    <token>seeks</token>
+    <token>a</token>
+    <token>stationary</token>
+    <token>point</token>
+    <token>of</token>
+    <token>a</token>
+    <token>(</token>
+    <token>preferably</token>
+    <token>twice</token>
+    <token>continuously</token>
+    <token>differentiable</token>
+    <token>)</token>
+    <token>function</token>
+  </sentence>
+  <sentence>
+    <token>For</token>
+    <token>such</token>
+    <token>problems</token>
+    <token>,</token>
+    <token>a</token>
+    <token>necessary</token>
+    <token>condition</token>
+    <token>for</token>
+    <token>optimality</token>
+    <token>is</token>
+    <token>that</token>
+    <token>the</token>
+    <token>gradient</token>
+    <token>be</token>
+    <token>zero</token>
+  </sentence>
+  <sentence>
+    <token namedEntity="true">Newton</token>
+    <token>'</token>
+    <token>s</token>
+    <token>method</token>
+    <token>and</token>
+    <token>the</token>
+    <token namedEntity="true">BFGS</token>
+    <token>methods</token>
+    <token>are</token>
+    <token>not</token>
+    <token>guaranteed</token>
+    <token>to</token>
+    <token>converge</token>
+    <token>unless</token>
+    <token>the</token>
+    <token>function</token>
+    <token>has</token>
+    <token>a</token>
+    <token>quadratic</token>
+    <token>Taylor</token>
+    <token>expansion</token>
+    <token>near</token>
+    <token>an</token>
+    <token>optimum</token>
+  </sentence>
+  <sentence>
+    <token>These</token>
+    <token>methods</token>
+    <token>use</token>
+    <token>both</token>
+    <token>the</token>
+    <token>first</token>
+    <token>and</token>
+    <token>second</token>
+    <token>derivatives</token>
+    <token>of</token>
+    <token>the</token>
+    <token>function</token>
+  </sentence>
+  <sentence>
+    <token>However</token>
+    <token>,</token>
+    <token namedEntity="true">BFGS</token>
+    <token>has</token>
+    <token>proven</token>
+    <token>to</token>
+    <token>have</token>
+    <token>good</token>
+    <token>performance</token>
+    <token>even</token>
+    <token>for</token>
+    <token>non-smooth</token>
+    <token>optimizations</token>
+  </sentence>
+</sentences>
+
+

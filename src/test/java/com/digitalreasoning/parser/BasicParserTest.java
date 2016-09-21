@@ -3,6 +3,7 @@ package com.digitalreasoning.parser;
 import com.digitalreasoning.entities.Sentence;
 import com.digitalreasoning.serializer.BasicXMLSerializer;
 import com.digitalreasoning.serializer.XmlSerializer;
+import org.junit.After;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -41,7 +42,8 @@ public class BasicParserTest {
 
     public void validateSentenceParsing(String str, BasicParser basicParser, int expectedSentences, int expectedTokens) throws IOException {
         System.out.println(String.format ("Testing: '%s'",str));
-        List<Sentence> sentences = basicParser.parseFile(getInputStream(str));
+        
+        List<Sentence> sentences = basicParser.parseString(str);
         System.out.println( serializer.serializeSentences(sentences) );
 
         int totalTokens      = 0;
@@ -52,22 +54,17 @@ public class BasicParserTest {
         assertEquals( "Expected Tokens"   ,expectedTokens   ,totalTokens       );
     }
 
-    @Test
-    public void parseFile_whenGivenTestFile_thenWordsExistInSentence(){
-
-    }
-
 
     @Test
     public void parseFile_givenThreeOrMoreRepeatingDots_TokenizeThemTogether() throws IOException {
-        List<Sentence> sentences = parser.parseFile(getInputStream("..."));
+        List<Sentence> sentences = parser.parseString("...");
         assertEquals( sentences.size(),1);
         assertEquals( sentences.get(0).getTokens().size(),1);
     }
 
     @Test
     public void parseFile_SentenceEndingWithPeriod_ReturnsTwoSentences() throws IOException {
-        List<Sentence> sentences = parser.parseFile(getInputStream("I am going to the store.  It is hot"));
+        List<Sentence> sentences = parser.parseString("I am going to the store.  It is hot");
 
         System.out.println( new BasicXMLSerializer().serializeSentences(sentences) );
 
@@ -77,20 +74,10 @@ public class BasicParserTest {
 
 
     }
-    @Test
-    public void parseFile_GivenSentence_EveryWordIsTokenized() throws IOException {
-        List<Sentence> sentences = parser.parseFile(getInputStream("I am going to the store.  It is hot"));
-        System.out.println( new BasicXMLSerializer().serializeSentences(sentences) );
-
-        assertEquals( sentences.get(0).getTokens().size(),6);
-
-
-
-    }
 
     @Test
     public void parseFile_whenGivenThreeOrMoreRepeatingDots_TokenizeThemTogether() throws IOException {
-        List<Sentence> sentences = parser.parseFile(getInputStream("..."));
+        List<Sentence> sentences = parser.parseString("...");
         System.out.println( new BasicXMLSerializer().serializeSentences(sentences) );
         assertEquals( 1     ,sentences.size());
         assertEquals( 1     ,sentences.get(0).getTokens().size());
@@ -99,14 +86,12 @@ public class BasicParserTest {
     }
     @Test
     public void parseFile_whenGivenSpaceThenThreeOrMoreRepeatingDots_TokenizeThemTogether() throws IOException {
-        List<Sentence> sentences = parser.parseFile(getInputStream(" ..."));
+        List<Sentence> sentences = parser.parseString(" ...");
         assertEquals( 1     ,sentences.size());
         assertEquals( 1     ,sentences.get(0).getTokens().size());
         assertEquals( "..." ,sentences.get(0).getTokens().get(0).getValue());
 
     }
 
-    InputStream getInputStream( String s){
-        return new ByteArrayInputStream(s.getBytes());
-    }
+
 }

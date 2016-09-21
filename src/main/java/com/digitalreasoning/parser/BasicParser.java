@@ -2,11 +2,8 @@ package com.digitalreasoning.parser;
 
 import com.digitalreasoning.entities.Sentence;
 import com.digitalreasoning.entities.Token;
-import sun.invoke.empty.Empty;
 
 import java.io.*;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +11,9 @@ import java.util.List;
  * Created by lindsey on 9/20/16.
  */
 public class BasicParser {
+
+
+
     String punctuation = "()\"?,'";
 
     enum TokenType{
@@ -23,20 +23,30 @@ public class BasicParser {
             return this==DOT || this==PUNCTUATION || this==CHARACTER;
         }
     }
-    public List<Sentence> parseFile( InputStream inputstream) throws IOException {
+
+    public List<Sentence> parseString( String str) throws IOException {
+        InputStream is = getInputStream(str);
+        List<Sentence> result = parseStream(is);
+        is.close();
+        return result;
+    }
+
+    private InputStream getInputStream( String s){
+        return new ByteArrayInputStream(s.getBytes());
+    }
+    public List<Sentence> parseStream(InputStream is) throws IOException {
+        InputStreamReader inputStreamReader = new InputStreamReader(is, "utf8");
+
         List<Sentence> sentences = new ArrayList<Sentence>();
 
         Sentence currentSentence = new Sentence();
         StringBuilder currentToken = new StringBuilder();
 
 
-
-
-
-        TokenType lastTokenType = TokenType.EMPTY;
-        TokenType currentTokenType = TokenType.EMPTY;
-        int data = inputstream.read();
-        while(data != -1) {
+        TokenType lastTokenType     = TokenType.EMPTY;
+        TokenType currentTokenType  = TokenType.EMPTY;
+        int data = inputStreamReader.read();
+         while (data > -1) {
             char c = (char) data;
 
             // determine the token type
@@ -82,7 +92,7 @@ public class BasicParser {
             }
 
 
-            data = inputstream.read();
+            data = inputStreamReader.read();
         }
 
         if  (lastTokenType.isTokenizeAble() ) {
@@ -96,10 +106,7 @@ public class BasicParser {
         }
 
 
-        inputstream.close();
-
-
-
+        inputStreamReader.close();
 
 
         return sentences;
@@ -108,9 +115,11 @@ public class BasicParser {
         if (currentToken.length() > 0) {
 
             Token t = new Token(currentToken.toString());
+
             currentSentence.getTokens().add(t);
 
         }
     }
+
 
 }

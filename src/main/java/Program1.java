@@ -2,8 +2,8 @@ import com.digitalreasoning.entities.Sentence;
 import com.digitalreasoning.parser.BasicParser;
 import com.digitalreasoning.serializer.PrettyPrintXMLSerializer;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -11,10 +11,12 @@ import java.util.List;
  */
 public class Program1 {
     public static void main(String[] args) throws IOException {
-        String testFile = Thread.currentThread().getClass().getResource("/nlp_data.txt").getFile();
+        InputStream testFileStream = Thread.currentThread().getClass().getResourceAsStream("/nlp_data.txt");
 
         BasicParser parser = new BasicParser(  );
-        List<Sentence> sentences = parser.parseFile(new FileInputStream(testFile));
+        List<Sentence> sentences = parser.parseStream(testFileStream);
+
+        testFileStream.close();
 
         PrettyPrintXMLSerializer serializer = new PrettyPrintXMLSerializer();
         System.out.println(serializer.serializeSentences(sentences));

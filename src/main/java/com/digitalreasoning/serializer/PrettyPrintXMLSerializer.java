@@ -45,7 +45,13 @@ public class PrettyPrintXMLSerializer implements XmlSerializer {
     private void serializeToken(StringBuilder sb, Token t, int currentIndent) {
         if (t != null && t.getValue() != null){
             addIndent(sb,currentIndent);
-            sb.append("<token>");
+
+            if ( t.isNamedEntity){
+                sb.append("<token namedEntity=\"true\">");
+            } else {
+                sb.append("<token>");
+            }
+
 
             sb.append(t.getValue());
 
