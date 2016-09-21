@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by lindsey on 9/20/16.
  */
-public class XMLSerializer {
+public class BasicXMLSerializer {
 
     public String serializeSentence(List<Sentence > sentences){
         StringBuilder sb = new StringBuilder();
