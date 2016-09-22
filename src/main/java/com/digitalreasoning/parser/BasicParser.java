@@ -57,9 +57,11 @@ public class BasicParser {
 
             // determine the token type
             if (c == '\n'){
-                currentTokenType = TokenType.IGNORE;
+//                currentTokenType = TokenType.IGNORE;
+                currentTokenType = TokenType.WHITESPACE;
             } else if (c == '.'){
                 currentTokenType = TokenType.DOT;
+
             } else if (c == ' '){
                 currentTokenType = TokenType.WHITESPACE;
             } else if (punctuation.indexOf(c) >= 0){
@@ -69,100 +71,46 @@ public class BasicParser {
             } else {
                 currentTokenType = TokenType.CHARACTER;
             }
-
+             Pattern multipleEndingDotPattern = Pattern.compile("([^\\.]+)(\\.\\.+)");
 
             if (reachedEOS || lastTokenType != TokenType.WHITESPACE && currentTokenType == TokenType.WHITESPACE && currentToken.length() > 0){
                 // we are at a whitespace break
 
                 String tokenStr = currentToken.toString();
                 currentToken.setLength(0);
-                if (tokenStr.matches("^\\w+$")) {
-                    /*word*/
-                    currentSentence.getTokens().add(new Token(tokenStr));
-                } else if (tokenStr.matches("^\\w+'\\w+$")){
+                 if (tokenStr.matches("^\\w+'\\w+$")){
                     /*word's*/
                         currentSentence.getTokens().add( new Token(tokenStr));
                 } else if (tokenStr.matches("^\\d+\\.\\d+$")){
                     /*2.12*/
                     currentSentence.getTokens().add( new Token(tokenStr));
                 } else if (tokenStr.matches("(\\w+)(\\.)(\\w+)")){
-
                     /*word.word*/
                     currentSentence.getTokens().add( new Token(tokenStr) );
 
-
-                } else if (tokenStr.matches("^\\w+\\.$")){
-                    currentSentence.getTokens().add( new Token(tokenStr.substring(0,tokenStr.length() - 1)));
-                    currentSentence.getTokens().add( new Token("."));
-                    if (currentSentence.getTokens().size() > 0){
-                        sentences.add(currentSentence);
-                        currentSentence = new Sentence();
-                    }
-
-                } else if (tokenStr.matches("^(\\w+)(\\.\\.+)$")){
-                    Pattern p = Pattern.compile("^(\\w+)(\\.\\.+)$");
-                    Matcher m = p.matcher(tokenStr);
-                    m.find();
-
-                    currentSentence.getTokens().add( new Token(m.group(1)));
-                    currentSentence.getTokens().add( new Token(m.group(2)));
-                    if (currentSentence.getTokens().size() > 0){
-                        sentences.add(currentSentence);
-                        currentSentence = new Sentence();
-                    }
-
-                } else if (tokenStr.matches("^(\\w+)([,])(\\.)$")){
-                    Pattern p = Pattern.compile("^(\\w+)([,]+)(\\.)$");
-                    Matcher m = p.matcher(tokenStr);
-                    m.find();
-
-                    currentSentence.getTokens().add( new Token(m.group(1)));
-                    currentSentence.getTokens().add( new Token(m.group(2)));
-                    currentSentence.getTokens().add( new Token(m.group(3)));
-                    if (currentSentence.getTokens().size() > 0){
-                        sentences.add(currentSentence);
-                        currentSentence = new Sentence();
-                    }
-
-                } else if (tokenStr.matches("^(\\w+)([,])(\\.\\.+)$")){
-                    /*"word,..."*/
-                    Pattern p = Pattern.compile("^(\\w+)([,]+)(\\.\\.+)$");
-                    Matcher m = p.matcher(tokenStr);
-                    m.find();
-
-                    currentSentence.getTokens().add( new Token(m.group(1)));
-                    currentSentence.getTokens().add( new Token(m.group(2)));
-                    currentSentence.getTokens().add( new Token(m.group(3)));
-                    if (currentSentence.getTokens().size() > 0){
-                        sentences.add(currentSentence);
-                        currentSentence = new Sentence();
-                    }
                 }else if (tokenStr.matches("[\\.]+")){
-
+//                    "."
                     currentSentence.getTokens().add( new Token(tokenStr));
                 }else if (tokenStr.matches("[^\\.]+")){
+                    handleTokenWithoutPeriod(currentSentence, tokenStr);
+                 }else if (multipleEndingDotPattern.matcher(tokenStr).find()){
+                     /*word...*/
+                     Matcher m = multipleEndingDotPattern.matcher(tokenStr);
+                     m.find();
 
-                    StringBuilder currentWord = new StringBuilder();
-                    for (int i = 0; i < tokenStr.length(); i++) {
-                        String currentLetter = tokenStr.substring(i,i+1);
-                        if ( currentLetter.matches("\\p{Punct}" )){
-                            if (currentWord.length() > 0){
-                                currentSentence.getTokens().add( new Token( currentWord.toString()  ));
-                                currentWord.setLength(0);
-                            }
-                            currentSentence.getTokens().add( new Token( currentLetter  ));
-
-                        } else {
-                            currentWord.append(currentLetter);
-                        }
-
-
-                    }
-                    if (currentWord.length() > 0){
-                        currentSentence.getTokens().add( new Token( currentWord.toString()  ));
-                        currentWord.setLength(0);
-                    }
-
+                     handleTokenWithoutPeriod(currentSentence, m.group(1));
+                     currentSentence.getTokens().add( new Token( m.group(2)));
+                     sentences.add(currentSentence);
+                     currentSentence = new Sentence();
+                }else if (tokenStr.matches("[^\\.]+\\.")){
+                    handleTokenWithoutPeriod(currentSentence, tokenStr.substring(0,tokenStr.length() -1));
+                    currentSentence.getTokens().add( new Token("."));
+                    sentences.add(currentSentence);
+                    currentSentence = new Sentence();
+                } else if (tokenStr.equals( "" )){
+                    // do nothing
+                } else {
+                    throw new RuntimeException("Token case not handled");
                 }
 
                 if ( reachedEOS || tokenStr.matches("\\.") ){
@@ -189,6 +137,29 @@ public class BasicParser {
         return sentences;
     }
 
+    private void handleTokenWithoutPeriod(Sentence currentSentence, String tokenStr) {
+        // words with punctuation
+        StringBuilder currentWord = new StringBuilder();
+        for (int i = 0; i < tokenStr.length(); i++) {
+            String currentLetter = tokenStr.substring(i,i+1);
+            if ( currentLetter.matches("\\p{Punct}" )){
+                if (currentWord.length() > 0){
+                    currentSentence.getTokens().add( new Token( currentWord.toString()  ));
+                    currentWord.setLength(0);
+                }
+                currentSentence.getTokens().add( new Token( currentLetter  ));
+
+            } else {
+                currentWord.append(currentLetter);
+            }
+
+
+        }
+        if (currentWord.length() > 0){
+            currentSentence.getTokens().add( new Token( currentWord.toString()  ));
+            currentWord.setLength(0);
+        }
+    }
 
 
     private void saveNonZeroLengthTokens(Sentence currentSentence, StringBuilder currentToken) {
