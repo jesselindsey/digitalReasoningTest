@@ -53,9 +53,10 @@
     <token>of</token>
     <token>the</token>
     <token>word</token>
+    <token>.</token>
+    <token>"</token>
   </sentence>
   <sentence>
-    <token>"</token>
     <token>Why</token>
     <token>did</token>
     <token>the</token>
@@ -84,8 +85,9 @@
     <token>the</token>
     <token>throne</token>
     <token>of</token>
-    <token namedEntity="true">Austria-Hungary</token>
-    <token>,</token>
+    <token>Austria-Hungary,</token>
+  </sentence>
+  <sentence>
     <token>by</token>
     <token>Yugoslav</token>
     <token>nationalist</token>
@@ -100,6 +102,7 @@
     <token>)</token>
     <token>in</token>
     <token namedEntity="true">Sarajevo</token>
+    <token>.</token>
   </sentence>
   <sentence>
     <token>This</token>
@@ -110,6 +113,8 @@
     <token>crisis</token>
     <token>when</token>
     <token namedEntity="true">Austria-Hungary</token>
+  </sentence>
+  <sentence>
     <token>delivered</token>
     <token>an</token>
     <token>ultimatum</token>
@@ -130,6 +135,7 @@
     <token>decades</token>
     <token>were</token>
     <token>invoked</token>
+    <token>.</token>
   </sentence>
   <sentence>
     <token>Within</token>
@@ -149,6 +155,6 @@
     <token>around</token>
     <token>the</token>
     <token>world</token>
+    <token>.</token>
   </sentence>
 </sentences>
-

@@ -1,9 +1,7 @@
 <file filename="nlp_data/d01.txt">
   <sentences>
     <sentence>
-      <token>Euclid</token>
-      <token>'</token>
-      <token>s</token>
+      <token>Euclid's</token>
       <token>Elements</token>
       <token>has</token>
       <token>been</token>
@@ -18,6 +16,7 @@
       <token>textbook</token>
       <token>ever</token>
       <token>written</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>First</token>
@@ -77,6 +76,7 @@
       <token>over</token>
       <token>one</token>
       <token>thousand</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>For</token>
@@ -95,6 +95,7 @@
       <token>of</token>
       <token>all</token>
       <token>students</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Not</token>
@@ -128,6 +129,7 @@
       <token>people</token>
       <token>had</token>
       <token>read</token>
+      <token>.</token>
     </sentence>
   </sentences>
 </file>
@@ -150,21 +152,22 @@
       <token>nonlinear</token>
       <token>optimization</token>
       <token>problems</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>The</token>
       <token>BFGS</token>
       <token>method</token>
       <token>approximates</token>
-      <token>Newton</token>
-      <token>'</token>
-      <token>s</token>
+      <token>Newton's</token>
       <token>method</token>
       <token>,</token>
       <token>a</token>
       <token>class</token>
       <token>of</token>
       <token>hill-climbing</token>
+    </sentence>
+    <sentence>
       <token>optimization</token>
       <token>techniques</token>
       <token>that</token>
@@ -181,6 +184,7 @@
       <token>differentiable</token>
       <token>)</token>
       <token>function</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>For</token>
@@ -198,11 +202,10 @@
       <token>gradient</token>
       <token>be</token>
       <token>zero</token>
+      <token>.</token>
     </sentence>
     <sentence>
-      <token>Newton</token>
-      <token>'</token>
-      <token>s</token>
+      <token>Newton's</token>
       <token>method</token>
       <token>and</token>
       <token>the</token>
@@ -224,6 +227,7 @@
       <token>near</token>
       <token>an</token>
       <token>optimum</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>These</token>
@@ -238,6 +242,7 @@
       <token>of</token>
       <token>the</token>
       <token>function</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>However</token>
@@ -252,7 +257,10 @@
       <token>even</token>
       <token>for</token>
       <token>non-smooth</token>
+    </sentence>
+    <sentence>
       <token>optimizations</token>
+      <token>.</token>
     </sentence>
   </sentences>
 </file>
@@ -276,6 +284,7 @@
       <token>Powys</token>
       <token>,</token>
       <token>Wales</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>It</token>
@@ -292,6 +301,7 @@
       <token>Wales</token>
       <token>and</token>
       <token>England</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>The</token>
@@ -315,6 +325,7 @@
       <token>1071</token>
       <token>and</token>
       <token>1074</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>On</token>
@@ -337,6 +348,7 @@
       <token>Baldwin</token>
       <token>de</token>
       <token>Boulers</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>In</token>
@@ -364,6 +376,7 @@
       <token>Prince</token>
       <token>of</token>
       <token>Wales</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>After</token>
@@ -392,6 +405,7 @@
       <token>front</token>
       <token>line</token>
       <token>fortress</token>
+      <token>.</token>
     </sentence>
   </sentences>
 </file>
@@ -427,6 +441,7 @@
       <token>of</token>
       <token>Olympic</token>
       <token>Games</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Found</token>
@@ -457,6 +472,7 @@
       <token>meshing</token>
       <token>bronze</token>
       <token>gears</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Its</token>
@@ -478,6 +494,7 @@
       <token>or</token>
       <token>significant</token>
       <token>inscriptions</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>The</token>
@@ -489,6 +506,7 @@
       <token>mm</token>
       <token>in</token>
       <token>diameter</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>The</token>
@@ -507,6 +525,7 @@
       <token>island</token>
       <token>of</token>
       <token>Antikythera</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Believed</token>
@@ -543,6 +562,7 @@
       <token>at</token>
       <token>205</token>
       <token>BC</token>
+      <token>.</token>
     </sentence>
   </sentences>
 </file>
@@ -569,6 +589,7 @@
       <token>or</token>
       <token>muddy</token>
       <token>bottoms</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>They</token>
@@ -578,6 +599,7 @@
       <token>shore</token>
       <token>to</token>
       <token>mate</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>They</token>
@@ -589,6 +611,7 @@
       <token>and</token>
       <token>in</token>
       <token>fertilizer</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>In</token>
@@ -620,6 +643,7 @@
       <token>of</token>
       <token>North</token>
       <token>America</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Because</token>
@@ -633,13 +657,14 @@
       <token>(</token>
       <token>Mya</token>
       <token>)</token>
-      <token>),</token>
+      <token>,</token>
       <token>horseshoe</token>
       <token>crabs</token>
       <token>are</token>
       <token>considered</token>
       <token>living</token>
       <token>fossils</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Horseshoe</token>
@@ -660,6 +685,7 @@
       <token>related</token>
       <token>to</token>
       <token>arachnids</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>The</token>
@@ -680,6 +706,7 @@
       <token>roughly</token>
       <token>450</token>
       <token>Mya</token>
+      <token>.</token>
     </sentence>
   </sentences>
 </file>
@@ -709,6 +736,7 @@
       <token>to</token>
       <token>do</token>
       <token>calculus</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Any</token>
@@ -727,6 +755,7 @@
       <token>as</token>
       <token>an</token>
       <token>atlas</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>One</token>
@@ -759,6 +788,7 @@
       <token>of</token>
       <token>calculus</token>
       <token>apply</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>If</token>
@@ -780,7 +810,7 @@
       <token>is</token>
       <token>differentiable</token>
       <token>)</token>
-      <token>),</token>
+      <token>,</token>
       <token>then</token>
       <token>computations</token>
       <token>done</token>
@@ -794,6 +824,7 @@
       <token>other</token>
       <token>differentiable</token>
       <token>chart</token>
+      <token>.</token>
     </sentence>
   </sentences>
 </file>
@@ -804,6 +835,7 @@
       <token>Microsystems</token>
       <token>,</token>
       <token>Inc</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>was</token>
@@ -838,6 +870,7 @@
       <token>(</token>
       <token>NFS</token>
       <token>)</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Sun</token>
@@ -862,6 +895,7 @@
       <token>and</token>
       <token>virtualized</token>
       <token>computing</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Sun</token>
@@ -872,6 +906,7 @@
       <token>24</token>
       <token>,</token>
       <token>1982</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>On</token>
@@ -888,11 +923,10 @@
       <token>Corporation</token>
       <token>for</token>
       <token>US</token>
-      <token>$7</token>
-    </sentence>
-    <sentence>
-      <token>4</token>
+      <token>$</token>
+      <token>7.4</token>
       <token>billion</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>The</token>
@@ -907,6 +941,7 @@
       <token>USA</token>
       <token>,</token>
       <token>Inc</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>to</token>
@@ -915,6 +950,7 @@
       <token>America</token>
       <token>,</token>
       <token>Inc</token>
+      <token>.</token>
     </sentence>
   </sentences>
 </file>
@@ -947,6 +983,7 @@
       <token>20</token>
       <token>,</token>
       <token>1969</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Armstrong</token>
@@ -962,6 +999,7 @@
       <token>six</token>
       <token>hours</token>
       <token>later</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Armstrong</token>
@@ -984,16 +1022,10 @@
       <token>together</token>
       <token>they</token>
       <token>collected</token>
-      <token>47</token>
-    </sentence>
-    <sentence>
-      <token>5</token>
+      <token>47.5</token>
       <token>pounds</token>
       <token>(</token>
-      <token>21</token>
-    </sentence>
-    <sentence>
-      <token>5</token>
+      <token>21.5</token>
       <token>kg</token>
       <token>)</token>
       <token>of</token>
@@ -1003,6 +1035,7 @@
       <token>return</token>
       <token>to</token>
       <token>Earth</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>The</token>
@@ -1041,6 +1074,7 @@
       <token>back</token>
       <token>to</token>
       <token>Earth</token>
+      <token>.</token>
     </sentence>
   </sentences>
 </file>
@@ -1052,7 +1086,8 @@
       <token>spacecraft</token>
       <token>had</token>
       <token>three</token>
-      <token>parts:</token>
+      <token>parts</token>
+      <token>:</token>
       <token>a</token>
       <token>Command</token>
       <token>Module</token>
@@ -1072,7 +1107,8 @@
       <token>landed</token>
       <token>back</token>
       <token>on</token>
-      <token>Earth;</token>
+      <token>Earth</token>
+      <token>;</token>
       <token>a</token>
       <token>Service</token>
       <token>Module</token>
@@ -1091,7 +1127,8 @@
       <token>oxygen</token>
       <token>,</token>
       <token>and</token>
-      <token>water;</token>
+      <token>water</token>
+      <token>;</token>
       <token>and</token>
       <token>a</token>
       <token>Lunar</token>
@@ -1101,6 +1138,7 @@
       <token>on</token>
       <token>the</token>
       <token>Moon</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>After</token>
@@ -1112,9 +1150,7 @@
       <token>by</token>
       <token>the</token>
       <token>Saturn</token>
-      <token>V</token>
-      <token>'</token>
-      <token>s</token>
+      <token>V's</token>
       <token>upper</token>
       <token>stage</token>
       <token>,</token>
@@ -1136,6 +1172,7 @@
       <token>into</token>
       <token>lunar</token>
       <token>orbit</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Armstrong</token>
@@ -1154,6 +1191,7 @@
       <token>Sea</token>
       <token>of</token>
       <token>Tranquility</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>They</token>
@@ -1162,15 +1200,13 @@
       <token>total</token>
       <token>of</token>
       <token>about</token>
-      <token>21</token>
-    </sentence>
-    <sentence>
-      <token>5</token>
+      <token>21.5</token>
       <token>hours</token>
       <token>on</token>
       <token>the</token>
       <token>lunar</token>
       <token>surface</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>After</token>
@@ -1205,6 +1241,7 @@
       <token>on</token>
       <token>July</token>
       <token>24</token>
+      <token>.</token>
     </sentence>
   </sentences>
 </file>
@@ -1219,6 +1256,7 @@
       <token>Scottish</token>
       <token>mathematical</token>
       <token>physicist</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>His</token>
@@ -1253,11 +1291,10 @@
       <token>the</token>
       <token>same</token>
       <token>phenomenon</token>
+      <token>.</token>
     </sentence>
     <sentence>
-      <token>Maxwell</token>
-      <token>'</token>
-      <token>s</token>
+      <token>Maxwell's</token>
       <token>equations</token>
       <token>for</token>
       <token>electromagnetism</token>
@@ -1281,6 +1318,8 @@
       <token>Isaac</token>
       <token>Newton</token>
       <token>...</token>
+    </sentence>
+    <sentence>
       <token>Maxwell</token>
       <token>demonstrated</token>
       <token>that</token>
@@ -1299,6 +1338,7 @@
       <token>speed</token>
       <token>of</token>
       <token>light</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>Maxwell</token>
@@ -1321,6 +1361,7 @@
       <token>and</token>
       <token>magnetic</token>
       <token>phenomena</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>The</token>
@@ -1340,6 +1381,7 @@
       <token>of</token>
       <token>radio</token>
       <token>waves</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>His</token>
@@ -1365,6 +1407,7 @@
       <token>and</token>
       <token>quantum</token>
       <token>mechanics</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>His</token>
@@ -1390,6 +1433,7 @@
       <token>and</token>
       <token>Albert</token>
       <token>Einstein</token>
+      <token>.</token>
     </sentence>
     <sentence>
       <token>QED</token>
