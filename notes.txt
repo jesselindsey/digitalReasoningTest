@@ -1,0 +1,33 @@
+Program1
+  The main class is BasicTokenizer.  The main method is responsible for taking a stream
+and converting it into a list of sentences which contains a list of tokens.  The streaming model
+allows for multiple forms of data (strings, files, urls, unziped file data) to be passed to the tokenizer.
+There is an assumption that data streams are limited to under a few MB, but if there was a need to process larger streams
+it is possible to persist results or to goto a streaming output model as well.
+
+The original tokenizer operated at a character by character level but was converted to process whitespace delimited groups of character.
+The current version still processes and aggregates character by character and then operates on a word, but this can be converted to use a
+scanner class to process at the word level.
+
+There is an assumption that whitespace can be ignore once tokenize but it is possible to store whitespace data in the data model.
+
+<sentence>
+    <token></token>
+</sentence>
+--------
+Program2
+  A post processor (NamedEntityPostProcessor) is added to the workflow.  After streams are tokenize, the post processor
+   reads each token and tags individual matching named tokens and will consolidate and tag named entities
+   if they expand multiple tokens.
+--------
+Program3
+    A thread executor is setup and threads are constructed with a stream.  Each thread will process the stream and save it's
+results.
+
+
+Todos:
+-------
+-For a production env, need to convert the XML serializer to an existing library such as JAXB.
+-Fix several tokenization test cases, a few a listed in BasicTokenizerBasicPhrases_UnitTest under method:notYetImplementedCases()
+-Need unit tests for NamedEntityPostProcessor
+-Need unit tests for Program3 worker threads
