@@ -101,7 +101,7 @@ public class BasicParserTest {
         validate(",Word"              ,         "<sentence><token>,</token><token>Word</token></sentence>"                                        );
         validate("Word:,"             ,        "<sentence><token>Word</token><token>:</token><token>,</token></sentence>"                                        );
         validate("',,,'"              ,          "<sentence><token>'</token><token>,</token><token>,</token><token>,</token><token>'</token></sentence>"                                        );
-
+        validate("..."              ,         "<sentence><token>...</token></sentence>"                                         );
         printResults();
 
     }
