@@ -36,6 +36,11 @@ public class BasicParser {
     private InputStream getInputStream( String s){
         return new ByteArrayInputStream(s.getBytes());
     }
+
+    Pattern multipleEndingDotPattern = Pattern.compile("([^\\.]+)(\\.\\.+)");
+    Pattern endSentenceQuotes = Pattern.compile("([^\\.]+)\\.\\\"");
+    Pattern decimalPattern = Pattern.compile("(\\p{Punct})*(\\d+\\.\\d+)");
+
     public List<Sentence> parseStream(InputStream is) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(is, "utf8");
 
@@ -71,7 +76,7 @@ public class BasicParser {
             } else {
                 currentTokenType = TokenType.CHARACTER;
             }
-             Pattern multipleEndingDotPattern = Pattern.compile("([^\\.]+)(\\.\\.+)");
+
 
             if (reachedEOS || lastTokenType != TokenType.WHITESPACE && currentTokenType == TokenType.WHITESPACE && currentToken.length() > 0){
                 // we are at a whitespace break
@@ -81,10 +86,21 @@ public class BasicParser {
                  if (tokenStr.matches("^\\w+'\\w+$")){
                     /*word's*/
                         currentSentence.getTokens().add( new Token(tokenStr));
-                } else if (tokenStr.matches("^\\d+\\.\\d+$")){
+                 } else if (decimalPattern.matcher( tokenStr ).find() ){
+                     // "(2.12" , "2.12" ,"$2.12"
+                     Matcher m = decimalPattern.matcher(tokenStr);
+                     m.find();
+
+                    if ( m.group(1) != null) {
+                        currentSentence.getTokens().add(new Token(m.group(1)));
+                    }
+                     currentSentence.getTokens().add( new Token( m.group(2)));
+
+                 } else if (tokenStr.matches("^\\$\\d+\\.\\d+$")){
                     /*2.12*/
-                    currentSentence.getTokens().add( new Token(tokenStr));
-                } else if (tokenStr.matches("(\\w+)(\\.)(\\w+)")){
+                     currentSentence.getTokens().add( new Token(tokenStr));
+
+                 } else if (tokenStr.matches("(\\w+)(\\.)(\\w+)")){
                     /*word.word*/
                     currentSentence.getTokens().add( new Token(tokenStr) );
 
@@ -93,6 +109,18 @@ public class BasicParser {
                     currentSentence.getTokens().add( new Token(tokenStr));
                 }else if (tokenStr.matches("[^\\.]+")){
                     handleTokenWithoutPeriod(currentSentence, tokenStr);
+
+                 }else if (endSentenceQuotes.matcher(tokenStr).find()){
+                     /* word." */
+                     Matcher m = endSentenceQuotes.matcher(tokenStr);
+                     m.find();
+
+                     handleTokenWithoutPeriod(currentSentence, m.group(1));
+                     currentSentence.getTokens().add( new Token( ".") );
+                     currentSentence.getTokens().add( new Token( "." ) );
+                     sentences.add(currentSentence);
+                     currentSentence = new Sentence();
+
                  }else if (multipleEndingDotPattern.matcher(tokenStr).find()){
                      /*word...*/
                      Matcher m = multipleEndingDotPattern.matcher(tokenStr);

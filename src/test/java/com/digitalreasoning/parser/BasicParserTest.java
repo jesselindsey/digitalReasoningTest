@@ -80,8 +80,11 @@ public class BasicParserTest {
         validate("word,..."             ,          "<sentence><token>word</token><token>,</token><token>...</token></sentence>" );
         validate("Euclid's"             ,          "<sentence><token>Euclid's</token></sentence>"                               );
         validate("2.12"                 ,          "<sentence><token>2.12</token></sentence>"                                       );
+        validate("$2.12"                 ,         "<sentence><token>$</token><token>2.12</token></sentence>"                                  );
+        validate("(21.5"               ,           "<sentence><token>(</token><token>21.5</token></sentence>"                                       );
         validate("20th Century"         ,          "<sentence><token>20th</token><token>Century</token></sentence>"                                       );
         validate("(BFGS)"               ,          "<sentence><token>(</token><token>BFGS</token><token>)</token></sentence>"                                       );
+
         validate("340x180x90"           ,          "<sentence><token>340x180x90</token></sentence>"                                       );
         validate("340 x 180 x 90"       ,          "<sentence><token>340</token><token>x</token><token>180</token><token>x</token><token>90</token></sentence>"                                       );
 
@@ -94,14 +97,15 @@ public class BasicParserTest {
     @Test
     public void testPunctuation() throws IOException {
         reset();
-        validate("\"Word\""           ,         "<sentence><token>\"</token><token>Word</token><token>\"</token></sentence>"                                );
-        validate("\"Word"           ,         "<sentence><token>\"</token><token>Word</token></sentence>"                                );
-        validate("Word\""           ,         "<sentence><token>Word</token><token>\"</token></sentence>"                                );
-        validate("Word,"              ,         "<sentence><token>Word</token><token>,</token></sentence>"                                        );
-        validate(",Word"              ,         "<sentence><token>,</token><token>Word</token></sentence>"                                        );
-        validate("Word:,"             ,        "<sentence><token>Word</token><token>:</token><token>,</token></sentence>"                                        );
-        validate("',,,'"              ,          "<sentence><token>'</token><token>,</token><token>,</token><token>,</token><token>'</token></sentence>"                                        );
-        validate("..."              ,         "<sentence><token>...</token></sentence>"                                         );
+        validate("\"Word\""        ,   "<sentence><token>\"</token><token>Word</token><token>\"</token></sentence>"                              );
+        validate("\"Word"          ,   "<sentence><token>\"</token><token>Word</token></sentence>"                                               );
+        validate("Word\""          ,   "<sentence><token>Word</token><token>\"</token></sentence>"                                               );
+        validate("Word,"           ,   "<sentence><token>Word</token><token>,</token></sentence>"                                                );
+        validate(",Word"           ,   "<sentence><token>,</token><token>Word</token></sentence>"                                                );
+        validate("Word:,"          ,   "<sentence><token>Word</token><token>:</token><token>,</token></sentence>"                                );
+        validate("',,,'"           ,   "<sentence><token>'</token><token>,</token><token>,</token><token>,</token><token>'</token></sentence>"   );
+        validate("..."             ,   "<sentence><token>...</token></sentence>"                                                                 );
+        validate("word.\""         ,   "<sentence><token>word</token><token>.</token><token>.</token></sentence>"                                );
         printResults();
 
     }
