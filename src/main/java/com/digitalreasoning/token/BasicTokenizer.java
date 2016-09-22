@@ -23,7 +23,9 @@ public class BasicTokenizer {
     }
 
     String punctuation = "()\"?,':";
-
+    Pattern multipleEndingDotPattern = Pattern.compile( "([^\\.]+)(\\.\\.+)"         );
+    Pattern endSentenceQuotes        = Pattern.compile( "([^\\.]+)\\.\\\""           );
+    Pattern decimalPattern           = Pattern.compile( "(\\p{Punct})*(\\d+\\.\\d+)" );
     enum TokenType{
         EMPTY,WHITESPACE,DOT,PUNCTUATION,CHARACTER, IGNORE, NUMBER;
     }
@@ -39,9 +41,7 @@ public class BasicTokenizer {
         return new ByteArrayInputStream(s.getBytes());
     }
 
-    Pattern multipleEndingDotPattern = Pattern.compile("([^\\.]+)(\\.\\.+)");
-    Pattern endSentenceQuotes = Pattern.compile("([^\\.]+)\\.\\\"");
-    Pattern decimalPattern = Pattern.compile("(\\p{Punct})*(\\d+\\.\\d+)");
+
 
     public List<Sentence> tokenizeStream(InputStream is) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(is, "utf8");
@@ -64,7 +64,6 @@ public class BasicTokenizer {
 
             // determine the token type
             if (c == '\n'){
-//                currentTokenType = TokenType.IGNORE;
                 currentTokenType = TokenType.WHITESPACE;
             } else if (c == '.'){
                 currentTokenType = TokenType.DOT;
@@ -181,7 +180,6 @@ public class BasicTokenizer {
     }
 
     private void handleTokenWithoutPeriod(Sentence currentSentence, String tokenStr) {
-        // words with punctuation
         StringBuilder currentWord = new StringBuilder();
         for (int i = 0; i < tokenStr.length(); i++) {
             String currentLetter = tokenStr.substring(i,i+1);
@@ -201,17 +199,6 @@ public class BasicTokenizer {
         if (currentWord.length() > 0){
             currentSentence.getTokens().add( new Token( currentWord.toString()  ));
             currentWord.setLength(0);
-        }
-    }
-
-
-    private void saveNonZeroLengthTokens(Sentence currentSentence, StringBuilder currentToken) {
-        if (currentToken.length() > 0) {
-
-            Token t = new Token(currentToken.toString());
-
-            currentSentence.getTokens().add(t);
-
         }
     }
 
