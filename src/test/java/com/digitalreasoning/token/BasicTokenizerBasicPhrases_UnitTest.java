@@ -14,14 +14,14 @@ import static org.junit.Assert.*;
 /**
  * Created by lindsey on 9/20/16.
  */
-public class BasicParserBasicPhrases_UnitTest {
+public class BasicTokenizerBasicPhrases_UnitTest {
     BasicTokenizer tokenizer = new BasicTokenizer(false);
 
     XmlSerializer serializer = new BasicXMLSerializer();
 
 
     @Test
-    public void parseNumbers() throws IOException {
+    public void tokenizeNumbers() throws IOException {
         reset();
         validate("340x180x90"           ,          "<sentence><token>340x180x90</token></sentence>"                                                                                  );
         validate("340 x 180 x 90"       ,          "<sentence><token>340</token><token>x</token><token>180</token><token>x</token><token>90</token></sentence>"                      );
@@ -37,7 +37,7 @@ public class BasicParserBasicPhrases_UnitTest {
     }
 
     @Test
-    public void parseWords() throws IOException {
+    public void tokenizeWords() throws IOException {
         reset();
         validate("word ."               ,          "<sentence><token>word</token><token>.</token></sentence>"                                                                        );
         validate("word.cat"             ,          "<sentence><token>word.cat</token></sentence>"                                                                                      );
@@ -66,7 +66,7 @@ public class BasicParserBasicPhrases_UnitTest {
         printResults();
     }
     @Test
-    public void testPunctuation() throws IOException {
+    public void tokenizePunctuation() throws IOException {
         reset();
         validate("\"Word\""        ,   "<sentence><token>\"</token><token>Word</token><token>\"</token></sentence>"                              );
         validate("\"Word"          ,   "<sentence><token>\"</token><token>Word</token></sentence>"                                               );
@@ -89,7 +89,7 @@ public class BasicParserBasicPhrases_UnitTest {
     private void validateSentenceParsing(String str, BasicTokenizer basicTokenizer, int expectedSentences, int expectedTokens) throws IOException {
         System.out.println(String.format ("Testing: '%s'",str));
         
-        List<Sentence> sentences = basicTokenizer.parseString(str);
+        List<Sentence> sentences = basicTokenizer.tokenizeString(str);
         System.out.println( serializer.serializeSentences(sentences) );
 
         int totalTokens      = 0;
@@ -115,7 +115,7 @@ public class BasicParserBasicPhrases_UnitTest {
         r.expected = expected;
 
         try {
-            r.result =  serializer.serializeSentences( tokenizer.parseString(phrase) );
+            r.result =  serializer.serializeSentences( tokenizer.tokenizeString(phrase) );
         } catch (IOException e) {
             r.result = "Exception";
             e.printStackTrace();

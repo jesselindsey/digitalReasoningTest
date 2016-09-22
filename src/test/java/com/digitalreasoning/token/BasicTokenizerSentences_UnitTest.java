@@ -15,20 +15,20 @@ import static org.junit.Assert.fail;
  * Created by lindsey on 9/20/16.
  */
 public class BasicTokenizerSentences_UnitTest {
-    BasicTokenizer parser = new BasicTokenizer();
+    BasicTokenizer tokenizer = new BasicTokenizer();
     XmlSerializer serializer = new BasicXMLSerializer();
 
 
     @Test
-    public void parseFile_givenThreeOrMoreRepeatingDots_TokenizeThemTogether() throws IOException {
-        List<Sentence> sentences = parser.parseString("...");
+    public void tokenizeFile_givenThreeOrMoreRepeatingDots_TokenizeThemTogether() throws IOException {
+        List<Sentence> sentences = tokenizer.tokenizeString("...");
         assertEquals( sentences.size(),1);
         assertEquals( sentences.get(0).getTokens().size(),1);
     }
 
     @Test
-    public void parseFile_SentenceEndingWithPeriod_ReturnsTwoSentences() throws IOException {
-        List<Sentence> sentences = parser.parseString("I am going to the store.  It is hot");
+    public void tokenizeFile_SentenceEndingWithPeriod_ReturnsTwoSentences() throws IOException {
+        List<Sentence> sentences = tokenizer.tokenizeString("I am going to the store.  It is hot");
 
         System.out.println( new BasicXMLSerializer().serializeSentences(sentences) );
 
@@ -40,8 +40,8 @@ public class BasicTokenizerSentences_UnitTest {
     }
 
     @Test
-    public void parseFile_whenGivenThreeOrMoreRepeatingDots_TokenizeThemTogether() throws IOException {
-        List<Sentence> sentences = parser.parseString("...");
+    public void tokenizeFile_whenGivenThreeOrMoreRepeatingDots_TokenizeThemTogether() throws IOException {
+        List<Sentence> sentences = tokenizer.tokenizeString("...");
         System.out.println( new BasicXMLSerializer().serializeSentences(sentences) );
         assertEquals( 1     ,sentences.size());
         assertEquals( 1     ,sentences.get(0).getTokens().size());
@@ -49,8 +49,8 @@ public class BasicTokenizerSentences_UnitTest {
 
     }
     @Test
-    public void parseFile_whenGivenSpaceThenThreeOrMoreRepeatingDots_TokenizeThemTogether() throws IOException {
-        List<Sentence> sentences = parser.parseString(" ...");
+    public void tokenizeFile_whenGivenSpaceThenThreeOrMoreRepeatingDots_TokenizeThemTogether() throws IOException {
+        List<Sentence> sentences = tokenizer.tokenizeString(" ...");
         assertEquals( 1     ,sentences.size());
         assertEquals( 1     ,sentences.get(0).getTokens().size());
         assertEquals( "..." ,sentences.get(0).getTokens().get(0).getValue());

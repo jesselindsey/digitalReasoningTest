@@ -14,7 +14,7 @@ public class Program1 {
         InputStream testFileStream = Thread.currentThread().getClass().getResourceAsStream("/nlp_data.txt");
 
         BasicTokenizer tokenizer = new BasicTokenizer(  );
-        List<Sentence> sentences = tokenizer.parseStream(testFileStream);
+        List<Sentence> sentences = tokenizer.tokenizeStream(testFileStream);
 
         testFileStream.close();
 

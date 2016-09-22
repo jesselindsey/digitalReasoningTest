@@ -19,7 +19,7 @@ public class Program2 {
 
         BasicTokenizer tokenizer = new BasicTokenizer();
 
-        List<Sentence> sentences = tokenizer.parseStream(testFileStream);
+        List<Sentence> sentences = tokenizer.tokenizeStream(testFileStream);
         for (Sentence s: sentences){
             namedEntityPostProcessor.consolidate(s);
         }

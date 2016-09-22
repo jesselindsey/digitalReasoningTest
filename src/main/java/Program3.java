@@ -96,7 +96,7 @@ public class Program3 {
         PrettyPrintXMLSerializer serializer = new PrettyPrintXMLSerializer();
         public void run() {
             try {
-                List<Sentence> sentences = basicTokenizer.parseStream(is);
+                List<Sentence> sentences = basicTokenizer.tokenizeStream(is);
                 output = new com.digitalreasoning.entities.File(sentences,inputFileName);
                 is.close();
             } catch (IOException e) {

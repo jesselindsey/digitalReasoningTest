@@ -28,9 +28,9 @@ public class BasicTokenizer {
         EMPTY,WHITESPACE,DOT,PUNCTUATION,CHARACTER, IGNORE, NUMBER;
     }
 
-    public List<Sentence> parseString( String str) throws IOException {
+    public List<Sentence> tokenizeString(String str) throws IOException {
         InputStream is = getInputStream(str);
-        List<Sentence> result = parseStream(is);
+        List<Sentence> result = tokenizeStream(is);
         is.close();
         return result;
     }
@@ -43,7 +43,7 @@ public class BasicTokenizer {
     Pattern endSentenceQuotes = Pattern.compile("([^\\.]+)\\.\\\"");
     Pattern decimalPattern = Pattern.compile("(\\p{Punct})*(\\d+\\.\\d+)");
 
-    public List<Sentence> parseStream(InputStream is) throws IOException {
+    public List<Sentence> tokenizeStream(InputStream is) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(is, "utf8");
 
         List<Sentence> sentences = new ArrayList<Sentence>();
