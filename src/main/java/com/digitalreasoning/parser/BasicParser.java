@@ -13,17 +13,19 @@ import java.util.regex.Pattern;
  * Created by lindsey on 9/20/16.
  */
 public class BasicParser {
+    private boolean lenient = true;
 
+    public BasicParser() {
+    }
 
+    public BasicParser(boolean lenient) {
+        this.lenient = lenient;
+    }
 
     String punctuation = "()\"?,':";
 
     enum TokenType{
         EMPTY,WHITESPACE,DOT,PUNCTUATION,CHARACTER, IGNORE, NUMBER;
-
-        public boolean isTokenizeAble() {
-            return this==DOT || this==PUNCTUATION || this==CHARACTER || this == NUMBER;
-        }
     }
 
     public List<Sentence> parseString( String str) throws IOException {
@@ -86,6 +88,12 @@ public class BasicParser {
                  if (tokenStr.matches("^\\w+'\\w+$")){
                     /*word's*/
                         currentSentence.getTokens().add( new Token(tokenStr));
+                 }else if (tokenStr.contains("-")){
+                     //"Austria-Hungary"
+                     currentSentence.getTokens().add( new Token(tokenStr));
+                     sentences.add(currentSentence);
+                     currentSentence = new Sentence();
+
                  } else if (decimalPattern.matcher( tokenStr ).find() ){
                      // "(2.12" , "2.12" ,"$2.12"
                      Matcher m = decimalPattern.matcher(tokenStr);
@@ -117,7 +125,7 @@ public class BasicParser {
 
                      handleTokenWithoutPeriod(currentSentence, m.group(1));
                      currentSentence.getTokens().add( new Token( ".") );
-                     currentSentence.getTokens().add( new Token( "." ) );
+                     currentSentence.getTokens().add( new Token( "\"" ) );
                      sentences.add(currentSentence);
                      currentSentence = new Sentence();
 
@@ -135,10 +143,17 @@ public class BasicParser {
                     currentSentence.getTokens().add( new Token("."));
                     sentences.add(currentSentence);
                     currentSentence = new Sentence();
+
                 } else if (tokenStr.equals( "" )){
                     // do nothing
                 } else {
-                    throw new RuntimeException("Token case not handled");
+                    if (lenient){
+                        if (tokenStr.length() > 0){
+                            currentSentence.getTokens().add( new Token( tokenStr  ));
+                        }
+                    } else {
+                        throw new RuntimeException("Token case not handled");
+                    }
                 }
 
                 if ( reachedEOS || tokenStr.matches("\\.") ){
