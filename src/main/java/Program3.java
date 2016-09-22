@@ -17,30 +17,34 @@ import java.util.zip.ZipFile;
  */
 public class Program3 {
     public static void main(String[] args){
-        String testFile = Thread.currentThread().getClass().getResource("/nlp_data.zip").getFile();
+        String zipFilePath = Thread.currentThread().getClass().getResource("/nlp_data.zip").getFile();
+
         PrettyPrintXMLSerializer serializer = new PrettyPrintXMLSerializer();
 
 
+        // determine and setup output directory
         String outputDirectory = args.length > 1 ? args[1]: System.getProperty("user.dir") + "/output" ;
         File outputFile = new File(outputDirectory);
         if (!outputFile.exists()){
             outputFile.mkdir();
         }
 
+        // setup threadpool
         ExecutorService executor = Executors.newFixedThreadPool(5);
-        List<WorkerThread> threads = new ArrayList<WorkerThread>();
+        List<TokenizerThread> threads = new ArrayList<TokenizerThread>();
+
+
         try {
-            ZipFile zipFile = new ZipFile(testFile);
+            ZipFile zipFile = new ZipFile(zipFilePath);
             Enumeration<?> enu = zipFile.entries();
             while (enu.hasMoreElements()) {
                 ZipEntry zipEntry = (ZipEntry) enu.nextElement();
 
-                String name = zipEntry.getName();
-
-                if (!zipEntry.isDirectory() && !zipEntry.getName().startsWith("__MACOSX")) {
+                //  Find text files exclude system files
+                if (!zipEntry.isDirectory() && !zipEntry.getName().startsWith("__MACOSX") && zipEntry.getName().endsWith(".txt")) {
                     InputStream is = zipFile.getInputStream(zipEntry);
 
-                    WorkerThread worker = new WorkerThread(is,zipEntry.getName());
+                    TokenizerThread worker = new TokenizerThread(is,zipEntry.getName());
                     threads.add(worker);
                     executor.execute(worker);
 
@@ -58,8 +62,9 @@ public class Program3 {
             e.printStackTrace();
         }
 
+        // loop through threads and aggregate the results
         List<com.digitalreasoning.entities.File> files = new ArrayList<com.digitalreasoning.entities.File>();
-        for ( WorkerThread thread : threads){
+        for ( TokenizerThread thread : threads){
             files.add(thread.getOutput());
         }
 
@@ -67,13 +72,8 @@ public class Program3 {
 
     }
 
-    private static String generateOutputFileName(String outputDirectory, ZipEntry zipEntry) {
-        String[] fileNameParts = zipEntry.getName().split("/");
 
-        return outputDirectory + "/" + fileNameParts[fileNameParts.length-1];
-    }
-
-    static class WorkerThread implements Runnable {
+    static class TokenizerThread implements Runnable {
         private final String inputFileName;
         InputStream is;
 
@@ -83,17 +83,12 @@ public class Program3 {
             return output;
         }
 
-        public void setOutput(com.digitalreasoning.entities.File output) {
-            this.output = output;
-        }
-
-        public WorkerThread(InputStream is, String inputFileName) {
+        public TokenizerThread(InputStream is, String inputFileName) {
             this.is = is;
             this.inputFileName = inputFileName;
         }
 
         private BasicTokenizer basicTokenizer = new BasicTokenizer();
-        PrettyPrintXMLSerializer serializer = new PrettyPrintXMLSerializer();
         public void run() {
             try {
                 List<Sentence> sentences = basicTokenizer.tokenizeStream(is);
