@@ -1,4 +1,4 @@
-package com.digitalreasoning.parser;
+package com.digitalreasoning.token;
 
 import com.digitalreasoning.entities.Sentence;
 import com.digitalreasoning.entities.Token;

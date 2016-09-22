@@ -1,14 +1,11 @@
-package com.digitalreasoning.parser;
+package com.digitalreasoning.token;
 
 import com.digitalreasoning.entities.Sentence;
 import com.digitalreasoning.serializer.BasicXMLSerializer;
 import com.digitalreasoning.serializer.XmlSerializer;
-import org.junit.After;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +15,7 @@ import static org.junit.Assert.*;
  * Created by lindsey on 9/20/16.
  */
 public class BasicParserBasicPhrases_UnitTest {
-    BasicParser parser = new BasicParser(false);
+    BasicTokenizer tokenizer = new BasicTokenizer(false);
 
     XmlSerializer serializer = new BasicXMLSerializer();
 
@@ -30,7 +27,7 @@ public class BasicParserBasicPhrases_UnitTest {
         validate("340 x 180 x 90"       ,          "<sentence><token>340</token><token>x</token><token>180</token><token>x</token><token>90</token></sentence>"                      );
         validate("2.12"                 ,          "<sentence><token>2.12</token></sentence>"                                                                                        );
         validate("$2.12"                ,          "<sentence><token>$</token><token>2.12</token></sentence>"                                                                         );
-        validate("(21.5"                ,           "<sentence><token>(</token><token>21.5</token></sentence>"                                                                       );
+        validate("(21.5"                ,          "<sentence><token>(</token><token>21.5</token></sentence>"                                                                       );
 
         printResults();
 
@@ -89,10 +86,10 @@ public class BasicParserBasicPhrases_UnitTest {
         results.clear();
     }
 
-    private void validateSentenceParsing(String str, BasicParser basicParser, int expectedSentences, int expectedTokens) throws IOException {
+    private void validateSentenceParsing(String str, BasicTokenizer basicTokenizer, int expectedSentences, int expectedTokens) throws IOException {
         System.out.println(String.format ("Testing: '%s'",str));
         
-        List<Sentence> sentences = basicParser.parseString(str);
+        List<Sentence> sentences = basicTokenizer.parseString(str);
         System.out.println( serializer.serializeSentences(sentences) );
 
         int totalTokens      = 0;
@@ -118,7 +115,7 @@ public class BasicParserBasicPhrases_UnitTest {
         r.expected = expected;
 
         try {
-            r.result =  serializer.serializeSentences( parser.parseString(phrase) );
+            r.result =  serializer.serializeSentences( tokenizer.parseString(phrase) );
         } catch (IOException e) {
             r.result = "Exception";
             e.printStackTrace();

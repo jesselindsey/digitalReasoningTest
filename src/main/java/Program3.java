@@ -1,5 +1,5 @@
 import com.digitalreasoning.entities.*;
-import com.digitalreasoning.parser.BasicParser;
+import com.digitalreasoning.token.BasicTokenizer;
 import com.digitalreasoning.serializer.PrettyPrintXMLSerializer;
 
 import java.io.*;
@@ -92,11 +92,11 @@ public class Program3 {
             this.inputFileName = inputFileName;
         }
 
-        private BasicParser basicParser = new BasicParser();
+        private BasicTokenizer basicTokenizer = new BasicTokenizer();
         PrettyPrintXMLSerializer serializer = new PrettyPrintXMLSerializer();
         public void run() {
             try {
-                List<Sentence> sentences = basicParser.parseStream(is);
+                List<Sentence> sentences = basicTokenizer.parseStream(is);
                 output = new com.digitalreasoning.entities.File(sentences,inputFileName);
                 is.close();
             } catch (IOException e) {

@@ -1,5 +1,5 @@
 import com.digitalreasoning.entities.Sentence;
-import com.digitalreasoning.parser.BasicParser;
+import com.digitalreasoning.token.BasicTokenizer;
 import com.digitalreasoning.serializer.PrettyPrintXMLSerializer;
 
 import java.io.IOException;
@@ -13,8 +13,8 @@ public class Program1 {
     public static void main(String[] args) throws IOException {
         InputStream testFileStream = Thread.currentThread().getClass().getResourceAsStream("/nlp_data.txt");
 
-        BasicParser parser = new BasicParser(  );
-        List<Sentence> sentences = parser.parseStream(testFileStream);
+        BasicTokenizer tokenizer = new BasicTokenizer(  );
+        List<Sentence> sentences = tokenizer.parseStream(testFileStream);
 
         testFileStream.close();
 

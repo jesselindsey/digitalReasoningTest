@@ -1,6 +1,6 @@
 import com.digitalreasoning.entities.Sentence;
-import com.digitalreasoning.parser.BasicParser;
-import com.digitalreasoning.parser.NamedEntityPostProcessor;
+import com.digitalreasoning.token.BasicTokenizer;
+import com.digitalreasoning.token.NamedEntityPostProcessor;
 import com.digitalreasoning.serializer.PrettyPrintXMLSerializer;
 
 import java.io.IOException;
@@ -17,9 +17,9 @@ public class Program2 {
         String namedEntityFile = Thread.currentThread().getClass().getResource("/NER.txt").getFile();
         NamedEntityPostProcessor namedEntityPostProcessor = new NamedEntityPostProcessor((namedEntityFile));
 
-        BasicParser parser = new BasicParser();
+        BasicTokenizer tokenizer = new BasicTokenizer();
 
-        List<Sentence> sentences = parser.parseStream(testFileStream);
+        List<Sentence> sentences = tokenizer.parseStream(testFileStream);
         for (Sentence s: sentences){
             namedEntityPostProcessor.consolidate(s);
         }

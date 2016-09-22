@@ -1,4 +1,4 @@
-package com.digitalreasoning.parser;
+package com.digitalreasoning.token;
 
 import com.digitalreasoning.entities.Sentence;
 import com.digitalreasoning.entities.Token;
@@ -12,13 +12,13 @@ import java.util.regex.Pattern;
 /**
  * Created by lindsey on 9/20/16.
  */
-public class BasicParser {
+public class BasicTokenizer {
     private boolean lenient = true;
 
-    public BasicParser() {
+    public BasicTokenizer() {
     }
 
-    public BasicParser(boolean lenient) {
+    public BasicTokenizer(boolean lenient) {
         this.lenient = lenient;
     }
 

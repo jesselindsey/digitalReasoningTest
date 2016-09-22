@@ -1,4 +1,4 @@
-package com.digitalreasoning.parser;
+package com.digitalreasoning.token;
 
 import com.digitalreasoning.entities.Sentence;
 import com.digitalreasoning.serializer.BasicXMLSerializer;
@@ -6,7 +6,6 @@ import com.digitalreasoning.serializer.XmlSerializer;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -15,8 +14,8 @@ import static org.junit.Assert.fail;
 /**
  * Created by lindsey on 9/20/16.
  */
-public class BasicParserSentences_UnitTest {
-    BasicParser parser = new BasicParser();
+public class BasicTokenizerSentences_UnitTest {
+    BasicTokenizer parser = new BasicTokenizer();
     XmlSerializer serializer = new BasicXMLSerializer();
 
 
